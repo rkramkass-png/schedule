@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="author" content="RamKas" />
+		<title>Расписание</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div class="app-container">
+			<header class="header">
+				<div class="tabs-container" id="tabsContainer">
+					<div class="tab-indicator" id="tabIndicator"></div>
+					<button class="tab" data-day="1">
+						Пн<span class="tab-dot"></span>
+					</button>
+					<button class="tab" data-day="2">
+						Вт<span class="tab-dot"></span>
+					</button>
+					<button class="tab" data-day="3">
+						Ср<span class="tab-dot"></span>
+					</button>
+					<button class="tab" data-day="4">
+						Чт<span class="tab-dot"></span>
+					</button>
+					<button class="tab" data-day="5">
+						Пт<span class="tab-dot"></span>
+					</button>
+					<button class="tab" data-day="6">
+						Сб<span class="tab-dot"></span>
+					</button>
+					<button class="tab" data-day="0">
+						Вс<span class="tab-dot"></span>
+					</button>
+				</div>
+				<div class="date-display" id="dateDisplay"></div>
+			</header>
+			<main class="content" id="mainContent"></main>
+		</div>
+		<script src="script.js"></script>
+	</body>
+</html>
