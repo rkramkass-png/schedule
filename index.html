@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="author" content="RamKas" />
+		<title>Расписание ВТиПО 24/1</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter+Display:wght@600&family=Inter:wght@400;600&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			:root {
+				--foreground-primary: #000000;
+				--foreground-secondary: #666666;
+				--border-primary: #e6e6e6;
+				--background-primary: #ffffff;
+				--background-secondary: #f2f2f2;
+				--font-display: 'Inter Display', sans-serif;
+				--font-base: 'Inter', sans-serif;
+				--size-24: 24px;
+				--size-16: 16px;
+			}
+
+			* {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+
+			body {
+				background-color: var(--background-primary);
+				color: var(--foreground-primary);
+				font-family: var(--font-base);
+				display: flex;
+				justify-content: center;
+				min-height: 100vh;
+			}
+
+			.app-container {
+				width: 100%;
+				max-width: 768px;
+				min-width: 360px;
+				padding: 24px 32px;
+			}
+
+			.header,
+			.day-header {
+				display: flex;
+				justify-content: space-between;
+				align-items: baseline;
+			}
+
+			.header {
+				padding-bottom: 24px;
+				border-bottom: 1px solid var(--border-primary);
+				margin-bottom: 24px;
+			}
+
+			.logo,
+			.day-title {
+				font-family: var(--font-display);
+				font-size: var(--size-24);
+				line-height: 28px;
+				letter-spacing: -0.24px;
+				font-weight: 600;
+			}
+
+			.week-number,
+			.day-date,
+			.lesson-title,
+			.lesson-details,
+			.lesson-time-badge {
+				font-size: var(--size-16);
+				line-height: 22px;
+				letter-spacing: -0.16px;
+			}
+
+			.week-number,
+			.day-date,
+			.lesson-details {
+				color: var(--foreground-secondary);
+			}
+
+			.day-section {
+				margin-bottom: 24px;
+			}
+
+			.lesson-card {
+				border: 1px solid var(--border-primary);
+				border-radius: 24px;
+				padding: 12px 16px 16px;
+				background-color: var(--background-primary);
+				margin-top: 16px;
+			}
+
+			.lesson-title {
+				font-weight: 600;
+				margin-bottom: 2px;
+			}
+
+			.lesson-details {
+				margin-bottom: 12px;
+			}
+
+			.lesson-time-badge {
+				display: inline-block;
+				background-color: var(--background-secondary);
+				font-weight: 600;
+				height: 32px;
+				padding: 5px 16px;
+				border-radius: 16px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="app-container">
+			<header class="header">
+				<h1 class="logo">ВТиПО 24/1</h1>
+				<span class="week-number" id="week-number"></span>
+			</header>
+			<main id="schedule-content"></main>
+		</div>
+
+		<script>
+			const scheduleData = [
+				{
+					dayName: 'Понедельник',
+					lessons: [
+						{
+							time: '15:00–15:50',
+							title: 'Интернет вещей (Лекция)',
+							teacher: 'Кульмамиров С. А · 405 аудитория',
+						},
+						{
+							time: '16:00–16:50',
+							title: 'Деловой иностранный язык (Семинар)',
+							teacher: 'Сапаров А. М · 308 аудитория',
+						},
+						{
+							time: '17:00–17:50',
+							title: 'Деловой иностранный язык (Семинар)',
+							teacher: 'Сапаров А. М · 308 аудитория',
+						},
+					],
+				},
+				{
+					dayName: 'Вторник',
+					lessons: [
+						{
+							time: '13:00–13:50',
+							title: 'Виртуализация и вычисление (Семинар)',
+							teacher: 'Жолдасбеков Н. Ә · 302 аудитория',
+						},
+						{
+							time: '14:00–14:50',
+							title: 'Криптографические методы защиты информации (Лекция)',
+							teacher: 'Абдибекова Л. М · 208 аудитория',
+						},
+						{
+							time: '15:00–15:50',
+							title: 'Объектно-ориентированное программирование (Лекция)',
+							teacher: 'магистр, Исаева М. А · 208 аудитория',
+						},
+						{
+							time: '16:00–16:50',
+							title: 'Криптографические методы защиты информации (Семинар)',
+							teacher: 'Толегенова А · 402 аудитория',
+						},
+						{
+							time: '17:00–17:50',
+							title: 'Криптографические методы защиты информации (Семинар)',
+							teacher: 'Толегенова А · 402 аудитория',
+						},
+					],
+				},
+				{
+					dayName: 'Среда',
+					lessons: [
+						{
+							time: '09:00–09:50',
+							title: 'Разработка StartUp (Онлайн-лекция)',
+							teacher: 'Акпанова Ж. К.',
+						},
+						{
+							time: '13:00–13:50',
+							title: 'Виртуализация и вычисление (Лекция)',
+							teacher: 'Кенебаева Д. Б · 211 аудитория',
+						},
+						{
+							time: '16:00–16:50',
+							title: 'Виртуализация и вычисление (Семинар)',
+							teacher: 'Жолдасбеков Н. Ә · 307 аудитория',
+						},
+					],
+				},
+				{
+					dayName: 'Четверг',
+					lessons: [
+						{
+							time: '09:00–09:50',
+							title: 'Облачные сервисы (Онлайн-семинар)',
+							teacher: 'Молдашев А.',
+						},
+						{
+							time: '13:00–13:50',
+							title: 'Разработка StartUp (Семинар)',
+							teacher: 'Базаров А. В · 415 аудитория',
+						},
+						{
+							time: '14:00–14:50',
+							title: 'Деловой иностранный язык (Семинар)',
+							teacher: 'Сапаров А. М · 415 аудитория',
+						},
+						{
+							time: '15:00–15:50',
+							title: 'Объектно-ориентированное программирование (Семинар)',
+							teacher: 'Демеуғали К. С · 405 аудитория',
+						},
+						{
+							time: '16:00–16:50',
+							title: 'Объектно-ориентированное программирование (Семинар)',
+							teacher: 'Демеуғали К. С · 405 аудитория',
+						},
+					],
+				},
+				{
+					dayName: 'Пятница',
+					lessons: [
+						{
+							time: '09:00–09:50',
+							title: 'Интернет вещей (Семинар)',
+							teacher: 'Кульмамиров С. А · 410 аудитория',
+						},
+						{
+							time: '11:00–11:50',
+							title: 'Облачные сервисы (Лекция)',
+							teacher: 'Абдрахманов Д. М · 212 аудитория',
+						},
+						{
+							time: '12:00–12:50',
+							title: 'Интернет вещей (Семинар)',
+							teacher: 'Кульмамиров С. А · 410 аудитория',
+						},
+					],
+				},
+			]
+
+			const months = [
+				'января',
+				'февраля',
+				'марта',
+				'апреля',
+				'мая',
+				'июня',
+				'июля',
+				'августа',
+				'сентября',
+				'октября',
+				'ноября',
+				'декабря',
+			]
+
+			function renderSchedule() {
+				const now = new Date()
+				const startDate = new Date(2026, 8, 7)
+				const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+
+				const diffWeeks = Math.floor(
+					(today - startDate) / (1000 * 60 * 60 * 24 * 7),
+				)
+				document.getElementById('week-number').textContent =
+					`${Math.max(1, diffWeeks + 1)}-я неделя`
+
+				const dayOfWeek = today.getDay()
+				const monday = new Date(today)
+				monday.setDate(today.getDate() + (dayOfWeek === 0 ? -6 : 1 - dayOfWeek))
+
+				const container = document.getElementById('schedule-content')
+				container.innerHTML = scheduleData
+					.map((day, index) => {
+						const dayDate = new Date(monday)
+						dayDate.setDate(monday.getDate() + index)
+
+						const lessonsHTML = day.lessons
+							.map(
+								l => `
+                        <article class="lesson-card">
+                            <div class="lesson-title">${l.title}</div>
+                            <div class="lesson-details">${l.teacher}</div>
+                            <div class="lesson-time-badge">${l.time}</div>
+                        </article>
+                    `,
+							)
+							.join('')
+
+						return `
+                        <section class="day-section">
+                            <div class="day-header">
+                                <h2 class="day-title">${day.dayName}</h2>
+                                <span class="day-date">${dayDate.getDate()} ${months[dayDate.getMonth()]}</span>
+                            </div>
+                            <div class="lessons-list">${lessonsHTML}</div>
+                        </section>
+                    `
+					})
+					.join('')
+			}
+
+			document.addEventListener('DOMContentLoaded', renderSchedule)
+		</script>
+	</body>
+</html>
